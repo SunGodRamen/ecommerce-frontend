@@ -30,6 +30,16 @@ server.get('/api/products', (req, res) => {
   res.jsonp(productslist);
 });
 
+server.get('/api/products/:productId', (req, res) => {
+  const productId = parseInt(req.params.productId, 10); // Convert to integer
+  const product = productslist.find(p => p.id === productId); // Find the product by id
+  if (product) {
+    res.jsonp(product);
+  } else {
+    res.status(404).jsonp({ error: "Product not found" });
+  }
+});
+
 server.use(router);
 server.listen(3001, () => {
   console.log('JSON Server is running on port 3001');

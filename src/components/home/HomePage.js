@@ -1,5 +1,6 @@
 // src/components/home/HomePage.js
 import React, { useState, useEffect } from 'react';
+import ProductList from '../products/ProductList'; // Assuming ProductList is in the same folder
 
 function HomePage() {
   const [products, setProducts] = useState([]);
@@ -32,17 +33,7 @@ function HomePage() {
   return (
     <div>
       <h1>Product List</h1>
-      {products.length > 0 ? (
-        <ul>
-          {products.map((product) => (
-            <li key={product.id}>
-              {product.name} - ${product.price}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No products found.</p>
-      )}
+      <ProductList />
     </div>
   );
 }

@@ -8,6 +8,8 @@ import HomePage from './components/home/HomePage';
 import RegistrationForm from './components/registration/RegistrationForm';
 import Navigation from './components/navigation/Navigation';
 import PrivateRoute from './PrivateRoute'; // Import PrivateRoute component
+import StorePage from './components/store/StorePage'; // Import the StorePage component
+import ProductPage from './components/products/ProductPage'; // Make sure to import ProductPage
 
 function App() {
   return (
@@ -18,16 +20,13 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationForm />} />
-          {/* Wrap the HomePage route with PrivateRoute to protect it */}
-          <Route
-            path="/home"
-            element={
-              <PrivateRoute>
-                <HomePage />
-              </PrivateRoute>
-            }
-          />
-          {/* Add more protected routes below, wrapped with PrivateRoute as needed */}
+          <Route path="/store" element={<StorePage />} /> {/* Route for StorePage */}
+          <Route path="/home" element={
+            <PrivateRoute>
+              <HomePage />
+            </PrivateRoute>
+          } />
+          <Route path="/product/:productId" element={<ProductPage />} />
         </Routes>
       </Router>
     </AuthProvider>

@@ -1,11 +1,14 @@
+// LoginPage.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext'; // Import useAuth hook
 import { Link } from 'react-router-dom';
 
-function LoginPage({ onLoginSuccess }) {
+function LoginPage() {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // Hook to navigate
+  const navigate = useNavigate();
+  const { login } = useAuth(); // Destructure the login function from the auth context
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -21,9 +24,8 @@ function LoginPage({ onLoginSuccess }) {
       });
       if (response.ok) {
         const data = await response.json();
-        sessionStorage.setItem('token', data.token); // Store the token
-        // onLoginSuccess(data); // Perform any additional login success actions
-        navigate('/home'); // Navigate to the home page
+        login(data.token); // Use the login function from the AuthContext
+        navigate('/home');
       } else {
         setError('Invalid username or password');
       }
